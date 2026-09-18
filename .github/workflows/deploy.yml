@@ -45,12 +45,17 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      # baseURL deliberately comes from hugo.toml (https://austincinfosec.com/)
+      # rather than steps.pages.outputs.base_url. On the first run, before the
+      # CNAME file has registered the custom domain, that output is the
+      # project-subpath URL (…github.io/austincinfosec.com), which would bake a
+      # /austincinfosec.com prefix into every asset path and break the site on
+      # the real domain.
       - name: Build
         run: |
           hugo \
             --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+            --minify
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
