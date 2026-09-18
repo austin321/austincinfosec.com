@@ -1,0 +1,33 @@
+{{- /* A single post in a listing. Receives the post page as context. */ -}}
+<article class="card">
+  <a class="card-link" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
+    <div class="card-media">
+      {{- $img := "" }}
+      {{- with .Params.cover }}{{ $img = $.Resources.GetMatch . }}{{ end }}
+      {{- if $img }}
+        {{- $t := $img.Process "resize 800x webp q80" }}
+        <img src="{{ $t.RelPermalink }}" width="{{ $t.Width }}" height="{{ $t.Height }}"
+             alt="" loading="lazy" decoding="async">
+      {{- else }}
+        <div class="card-media-fallback" aria-hidden="true">{{ substr .Title 0 1 }}</div>
+      {{- end }}
+    </div>
+  </a>
+
+  <div class="card-body">
+    <div class="meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+      <span class="dot" aria-hidden="true">·</span>
+      <span>{{ .ReadingTime }} min read</span>
+    </div>
+
+    <h3 class="card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    <p class="card-summary">{{ .Summary | plainify | truncate 160 }}</p>
+
+    {{- with .Params.categories }}
+    <ul class="chips">
+      {{- range . }}<li><a href="{{ (urlize .) | printf "/categories/%s/" | relURL }}">{{ . }}</a></li>{{ end }}
+    </ul>
+    {{- end }}
+  </div>
+</article>

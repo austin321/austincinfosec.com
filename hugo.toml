@@ -1,0 +1,85 @@
+baseURL = "https://austincinfosec.com/"
+locale = "en-us"
+title = "Austin Chen"
+enableRobotsTXT = true
+enableEmoji = true
+summaryLength = 30
+
+# Keep the WordPress-era permalinks working: /2024/09/30/some-post/
+[permalinks]
+  [permalinks.page]
+    blog = "/blog/:slug/"
+
+[params]
+  author = "Austin Chen"
+  description = "Cybersecurity student, blogger, and ex-junior Olympic fencer. Notes on security labs, cloud, and certifications."
+  tagline = "Cybersecurity student, lifelong learner, and ex-junior Olympic fencer."
+  email = "austinevanchen@gmail.com"
+  location = "United States"
+  # Shown in the hero's terminal line on the homepage.
+  prompt = "whoami"
+
+  [[params.social]]
+    name = "GitHub"
+    url = "https://github.com/"
+    icon = "github"
+  [[params.social]]
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/austincinfosec/"
+    icon = "linkedin"
+  [[params.social]]
+    name = "X"
+    url = "https://twitter.com/AustinCInfSec"
+    icon = "x"
+  [[params.social]]
+    name = "Email"
+    url = "mailto:austinevanchen@gmail.com"
+    icon = "mail"
+
+[menus]
+  [[menus.main]]
+    name = "Blog"
+    pageRef = "/blog"
+    weight = 10
+  [[menus.main]]
+    name = "Projects"
+    pageRef = "/projects"
+    weight = 20
+  [[menus.main]]
+    name = "Certifications"
+    pageRef = "/certifications"
+    weight = 30
+  [[menus.main]]
+    name = "About"
+    pageRef = "/about"
+    weight = 40
+  [[menus.main]]
+    name = "Contact"
+    pageRef = "/contact"
+    weight = 50
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[pagination]
+  pagerSize = 10
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+  [markup.highlight]
+    noClasses = false
+    lineNos = false
+    tabWidth = 2
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[services]
+  [services.rss]
+    limit = 20

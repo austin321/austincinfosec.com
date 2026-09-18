@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="wrap prose-page">
+  <header class="page-head">
+    <h1>{{ .Title }}</h1>
+    {{- with .Params.subtitle }}<p class="page-subtitle">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="prose">{{ .Content }}</div>
+
+  <ul class="contact-list" role="list">
+    {{- range site.Params.social }}
+    <li>
+      <a href="{{ .url }}" {{ if not (hasPrefix .url "mailto:") }}rel="me noopener" target="_blank"{{ end }}>
+        <span class="contact-icon">{{ partial "icon.html" .icon }}</span>
+        <span class="contact-text">
+          <span class="contact-label">{{ .name }}</span>
+          <span class="contact-value">{{ replace (replace .url "mailto:" "") "https://" "" }}</span>
+        </span>
+        <span class="contact-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+</div>
+{{ end }}

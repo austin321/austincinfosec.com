@@ -1,0 +1,38 @@
+{{ define "main" }}
+<div class="wrap">
+  <header class="page-head">
+    <h1>{{ .Title }}</h1>
+    {{- with .Params.subtitle }}<p class="page-subtitle">{{ . }}</p>{{ end }}
+  </header>
+
+  {{- with .Content }}<div class="prose section-intro">{{ . }}</div>{{ end }}
+
+  <ul class="stack" role="list">
+    {{- range .Params.certifications }}
+    <li class="entry cert">
+      <div class="entry-side">
+        <span class="cert-badge" aria-hidden="true">{{ with .code }}{{ . }}{{ else }}{{ substr .name 0 2 | upper }}{{ end }}</span>
+      </div>
+
+      <div class="entry-main">
+        <div class="entry-meta">
+          {{- with .issuer }}<span>{{ . }}</span>{{ end }}
+          {{- with .date }}<span class="dot" aria-hidden="true">·</span><span>{{ (time .).Format "January 2006" }}</span>{{ end }}
+          {{- if eq .status "in-progress" }}<span class="status status-wip">In progress</span>
+          {{- else if eq .status "planned" }}<span class="status status-planned">Planned</span>
+          {{- else }}<span class="status status-done">Earned</span>{{ end }}
+        </div>
+
+        <h2 class="entry-title">{{ .name }}</h2>
+        {{- with .summary }}<p class="entry-summary">{{ . }}</p>{{ end }}
+
+        <div class="entry-links">
+          {{- with .post }}<a href="{{ . | relURL }}">My study guide &rarr;</a>{{ end }}
+          {{- with .credential }}<a href="{{ . }}" rel="noopener" target="_blank">Verify credential &rarr;</a>{{ end }}
+        </div>
+      </div>
+    </li>
+    {{- end }}
+  </ul>
+</div>
+{{ end }}

@@ -1,0 +1,76 @@
+/* =========================================================================
+   Syntax highlighting (Chroma classes), driven by theme tokens so code
+   blocks recolour with the rest of the site.
+   ========================================================================= */
+
+:root, :root[data-theme="dark"] {
+  --hl-comment: #5d7186;
+  --hl-keyword: #7fb2ff;
+  --hl-string:  #5fe3b4;
+  --hl-number:  #f0b47a;
+  --hl-func:    #c4a6ff;
+  --hl-type:    #6fd7e6;
+  --hl-name:    #e3ebf4;
+  --hl-op:      #9aabbf;
+  --hl-err:     #ff8c8c;
+  --hl-lineno:  #3c4a5a;
+}
+
+:root[data-theme="light"] {
+  --hl-comment: #6b7c8f;
+  --hl-keyword: #1d51c4;
+  --hl-string:  #0a7a53;
+  --hl-number:  #a85b12;
+  --hl-func:    #6b31c9;
+  --hl-type:    #086f83;
+  --hl-name:    #0c1520;
+  --hl-op:      #51637a;
+  --hl-err:     #c22626;
+  --hl-lineno:  #a8b6c4;
+}
+
+.highlight pre { margin: 0; }
+.highlight { margin: 1.8em 0; }
+
+.chroma { color: var(--hl-name); background: transparent; }
+
+.chroma .err { color: var(--hl-err); }
+.chroma .lnt, .chroma .ln { color: var(--hl-lineno); user-select: none; margin-right: 0.8em; }
+.chroma .hl { background: var(--accent-soft); display: block; }
+
+/* Comments */
+.chroma .c, .chroma .ch, .chroma .cm, .chroma .c1, .chroma .cs,
+.chroma .cp, .chroma .cpf { color: var(--hl-comment); font-style: italic; }
+
+/* Keywords */
+.chroma .k, .chroma .kc, .chroma .kd, .chroma .kn,
+.chroma .kp, .chroma .kr { color: var(--hl-keyword); }
+.chroma .kt { color: var(--hl-type); }
+
+/* Names */
+.chroma .na { color: var(--hl-type); }
+.chroma .nb, .chroma .bp { color: var(--hl-type); }
+.chroma .nc, .chroma .nn { color: var(--hl-type); }
+.chroma .nf, .chroma .fm { color: var(--hl-func); }
+.chroma .nd { color: var(--hl-func); }
+.chroma .nt { color: var(--hl-keyword); }
+.chroma .nv, .chroma .vc, .chroma .vg, .chroma .vi { color: var(--hl-name); }
+.chroma .no { color: var(--hl-number); }
+
+/* Literals */
+.chroma .s, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl,
+.chroma .sd, .chroma .s2, .chroma .se, .chroma .sh, .chroma .si,
+.chroma .sx, .chroma .sr, .chroma .s1, .chroma .ss { color: var(--hl-string); }
+
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh,
+.chroma .mi, .chroma .il, .chroma .mo { color: var(--hl-number); }
+
+/* Operators & punctuation */
+.chroma .o, .chroma .ow, .chroma .p { color: var(--hl-op); }
+
+/* Diffs */
+.chroma .gd { color: var(--hl-err); }
+.chroma .gi { color: var(--hl-string); }
+.chroma .ge { font-style: italic; }
+.chroma .gs { font-weight: 600; }
+.chroma .gu { color: var(--hl-comment); }

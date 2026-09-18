@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="wrap notfound">
+  <p class="term-line"><span class="term-prompt">$</span> cat /requested/page</p>
+  <h1>404 &mdash; not found</h1>
+  <p class="page-subtitle">That page moved, or never existed. The blog archive is probably what you want.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="{{ "/blog/" | relURL }}">Browse the blog</a>
+    <a class="btn btn-ghost" href="{{ "/" | relURL }}">Go home</a>
+  </div>
+</div>
+{{ end }}

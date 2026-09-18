@@ -1,0 +1,43 @@
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <p class="footer-name">{{ site.Title }}</p>
+      <p class="footer-tag">{{ site.Params.tagline }}</p>
+    </div>
+
+    <ul class="social" aria-label="Elsewhere">
+      {{- range site.Params.social }}
+      <li>
+        <a href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}"
+           {{ if not (hasPrefix .url "mailto:") }}rel="me noopener" target="_blank"{{ end }}>
+          {{ partial "icon.html" .icon }}
+        </a>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+
+  <div class="wrap footer-legal">
+    <p>&copy; {{ now.Year }} {{ site.Params.author }}</p>
+    {{- with .OutputFormats.Get "rss" }}<p><a href="{{ .Permalink }}">RSS</a></p>{{ end }}
+  </div>
+</footer>
+
+<script>
+  // Theme toggle: persists the user's explicit choice, otherwise follows the OS.
+  (function () {
+    var root = document.documentElement;
+    var btn = document.querySelector('.theme-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      root.setAttribute('theme-src', 'user');
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      if (root.getAttribute('theme-src') === 'user') return;
+      root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+    });
+  })();
+</script>

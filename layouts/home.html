@@ -1,0 +1,56 @@
+{{ define "main" }}
+<section class="hero">
+  <div class="wrap hero-inner">
+    <p class="hero-kicker">
+      <span class="term-prompt" aria-hidden="true">$</span>
+      <span class="term-cmd">{{ site.Params.prompt }}</span>
+      <span class="term-caret" aria-hidden="true"></span>
+    </p>
+
+    <h1 class="hero-title">{{ site.Title }}</h1>
+    <p class="hero-tagline">{{ site.Params.tagline }}</p>
+
+    {{- with .Content }}<div class="hero-body">{{ . }}</div>{{ end }}
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{{ "/blog/" | relURL }}">Read the blog</a>
+      <a class="btn btn-ghost" href="{{ "/about/" | relURL }}">About me</a>
+    </div>
+  </div>
+</section>
+
+{{- $posts := where site.RegularPages "Section" "blog" }}
+{{- with $posts }}
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Latest writing</h2>
+      <a class="section-more" href="{{ "/blog/" | relURL }}">All posts &rarr;</a>
+    </div>
+    <div class="grid">
+      {{- range first 3 . }}{{ partial "post-card.html" . }}{{ end }}
+    </div>
+  </div>
+</section>
+{{- end }}
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head"><h2>Where to go next</h2></div>
+    <div class="tiles">
+      <a class="tile" href="{{ "/projects/" | relURL }}">
+        <h3>Projects &amp; Labs</h3>
+        <p>Hands-on security builds — ransomware internals, Linux backdoors, Python automation.</p>
+      </a>
+      <a class="tile" href="{{ "/certifications/" | relURL }}">
+        <h3>Certifications</h3>
+        <p>What I've earned, what I'm studying, and how I prepared for each exam.</p>
+      </a>
+      <a class="tile" href="{{ "/contact/" | relURL }}">
+        <h3>Contact</h3>
+        <p>Say hello, ask a question, or reach me about opportunities.</p>
+      </a>
+    </div>
+  </div>
+</section>
+{{ end }}

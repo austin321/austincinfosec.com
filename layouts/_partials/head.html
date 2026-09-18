@@ -1,0 +1,61 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {{- $title := cond .IsHome site.Title (printf "%s · %s" .Title site.Title) }}
+  <title>{{ $title }}</title>
+
+  {{- $desc := or .Description .Summary site.Params.description }}
+  {{- $desc = $desc | plainify | truncate 180 }}
+  <meta name="description" content="{{ $desc }}">
+  <meta name="author" content="{{ site.Params.author }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <meta property="og:site_name" content="{{ site.Title }}">
+  <meta property="og:title" content="{{ $title }}">
+  <meta property="og:description" content="{{ $desc }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+  {{- with .Params.cover }}
+    {{- with $.Resources.GetMatch . }}
+      {{- $og := .Resize "1200x630 webp q85" }}
+  <meta property="og:image" content="{{ $og.Permalink }}">
+  <meta name="twitter:card" content="summary_large_image">
+    {{- end }}
+  {{- else }}
+  <meta name="twitter:card" content="summary">
+  {{- end }}
+  {{- with site.Params.social }}{{ range . }}{{ if eq .icon "x" }}
+  <meta name="twitter:site" content="@{{ replace (replace .url "https://twitter.com/" "") "https://x.com/" "" }}">
+  {{- end }}{{ end }}{{ end }}
+
+  {{- if .IsPage }}
+  <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+  {{- end }}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  {{- $css := slice (resources.Get "css/main.css") (resources.Get "css/chroma.css") | resources.Concat "css/bundle.css" }}
+  {{- if hugo.IsProduction }}{{ $css = $css | minify | fingerprint }}{{ end }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" {{ with $css.Data.Integrity }}integrity="{{ . }}"{{ end }}>
+
+  {{- with .OutputFormats.Get "rss" }}
+  <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">
+  {{- end }}
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <script>
+    // Applied before first paint so the chosen theme never flashes.
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        document.documentElement.setAttribute('theme-src', saved ? 'user' : 'system');
+        document.documentElement.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+      } catch (e) {}
+    })();
+  </script>
+</head>

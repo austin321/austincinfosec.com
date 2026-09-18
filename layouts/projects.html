@@ -1,0 +1,42 @@
+{{ define "main" }}
+<div class="wrap">
+  <header class="page-head">
+    <h1>{{ .Title }}</h1>
+    {{- with .Params.subtitle }}<p class="page-subtitle">{{ . }}</p>{{ end }}
+  </header>
+
+  {{- with .Content }}<div class="prose section-intro">{{ . }}</div>{{ end }}
+
+  <ul class="stack" role="list">
+    {{- range .Params.projects }}
+    <li class="entry">
+      <div class="entry-side">
+        <span class="entry-year">{{ .year }}</span>
+      </div>
+
+      <div class="entry-main">
+        <h2 class="entry-title">
+          {{- with .post }}<a href="{{ . | relURL }}">{{ end }}
+          {{- .title }}
+          {{- with .post }}</a>{{ end }}
+        </h2>
+
+        <p class="entry-summary">{{ .summary }}</p>
+
+        {{- with .tech }}
+        <ul class="chips chips-plain" role="list">
+          {{- range . }}<li><span>{{ . }}</span></li>{{ end }}
+        </ul>
+        {{- end }}
+
+        <div class="entry-links">
+          {{- with .post }}<a href="{{ . | relURL }}">Read the write-up &rarr;</a>{{ end }}
+          {{- with .repo }}<a href="{{ . }}" rel="noopener" target="_blank">Source &rarr;</a>{{ end }}
+          {{- with .link }}<a href="{{ . }}" rel="noopener" target="_blank">Live &rarr;</a>{{ end }}
+        </div>
+      </div>
+    </li>
+    {{- end }}
+  </ul>
+</div>
+{{ end }}

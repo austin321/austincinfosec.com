@@ -1,0 +1,16 @@
+{{- /* Images inside posts: resolve page-bundle resources, resize, and lazy-load. */ -}}
+{{- $src := .Destination -}}
+{{- $res := "" -}}
+{{- if not (urls.Parse $src).IsAbs -}}
+  {{- $res = .Page.Resources.GetMatch $src -}}
+{{- end -}}
+<figure class="fig">
+{{- if $res -}}
+  {{- $t := $res.Process "resize 1200x webp q82" -}}
+  <img src="{{ $t.RelPermalink }}" width="{{ $t.Width }}" height="{{ $t.Height }}"
+       alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+{{- else -}}
+  <img src="{{ $src }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+{{- end -}}
+{{- with .Title }}<figcaption>{{ . }}</figcaption>{{ end -}}
+</figure>
