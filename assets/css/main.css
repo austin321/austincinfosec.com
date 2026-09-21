@@ -211,11 +211,132 @@ main { min-height: 60vh; padding-bottom: 5rem; }
   padding-block: clamp(3.5rem, 9vw, 7rem) clamp(2.5rem, 6vw, 4.5rem);
   background-image: var(--glow);
   overflow: hidden;
+
+  --neon-cyan: #00e6f6;
+  --neon-yellow: #fcee09;
+  --neon-red: #fd3649;
+}
+
+/* Neon reads as glare on a dark panel; on white it needs darkening to stay legible. */
+:root[data-theme="light"] .hero {
+  --neon-cyan: #0295a3;
+  --neon-yellow: #a98800;
+  --neon-red: #d41028;
 }
 
 .hero::after {
   content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1px;
   background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+/* =========================================================================
+   Hero cyberpunk treatment — CRT scanlines and an RGB-split glitch on the
+   name. Technique adapted from Pathum Danthanarayana's 2021 personal site
+   (MIT, Copyright 2021 Pathum Danthanarayana). Scoped to .hero on purpose:
+   the rest of the site stays plain.
+   ========================================================================= */
+
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 2px,
+    color-mix(in srgb, var(--neon-cyan) 7%, transparent) 2px 3px
+  );
+}
+
+.hero-scan {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--neon-cyan) 16%, transparent) 50%,
+    transparent
+  ) no-repeat;
+  background-size: 100% 180px;
+  animation: hero-sweep 7.5s linear infinite;
+}
+
+@keyframes hero-sweep {
+  from { background-position: 0 -180px; }
+  to   { background-position: 0 118%; }
+}
+
+.hero-inner { position: relative; z-index: 1; }
+
+.hero ::selection { background: var(--neon-cyan); color: #04121a; }
+
+.hero .term-prompt { color: var(--neon-yellow); }
+.hero .term-caret { background: var(--neon-yellow); }
+
+.hero-title { position: relative; }
+
+.hero-title::before,
+.hero-title::after {
+  content: attr(data-text);
+  position: absolute; top: 0; left: 0; width: 100%;
+  opacity: 0; pointer-events: none;
+}
+
+.hero-title::before { text-shadow: 3px 0 var(--neon-red); }
+.hero-title::after  { text-shadow: -3px 0 var(--neon-cyan); }
+
+/* Idle: a short burst every few seconds. Hover: sustained. */
+.hero-title::before { animation: glitch-a 8s steps(1, end) infinite; }
+.hero-title::after  { animation: glitch-b 8s steps(1, end) infinite; }
+
+.hero-title:hover::before { animation: glitch-a-hover 0.5s steps(1, end) infinite; }
+.hero-title:hover::after  { animation: glitch-b-hover 0.45s steps(1, end) infinite; }
+
+@keyframes glitch-a {
+  0%, 89%, 100% { opacity: 0; clip-path: inset(50% 0 50% 0); transform: none; }
+  90% { opacity: 1; clip-path: inset(12% 0 68% 0); transform: translateX(-4px); }
+  92% { opacity: 1; clip-path: inset(58% 0 24% 0); transform: translateX(5px); }
+  94% { opacity: 1; clip-path: inset(30% 0 52% 0); transform: translateX(-2px); }
+}
+
+@keyframes glitch-b {
+  0%, 89%, 100% { opacity: 0; clip-path: inset(50% 0 50% 0); transform: none; }
+  91% { opacity: 1; clip-path: inset(70% 0 12% 0); transform: translateX(4px); }
+  93% { opacity: 1; clip-path: inset(22% 0 62% 0); transform: translateX(-5px); }
+  95% { opacity: 1; clip-path: inset(46% 0 38% 0); transform: translateX(3px); }
+}
+
+@keyframes glitch-a-hover {
+  0%   { opacity: 1; clip-path: inset(8% 0 74% 0);  transform: translateX(-5px); }
+  25%  { opacity: 1; clip-path: inset(62% 0 20% 0); transform: translateX(4px); }
+  50%  { opacity: 1; clip-path: inset(34% 0 48% 0); transform: translateX(-3px); }
+  75%  { opacity: 0; }
+  100% { opacity: 1; clip-path: inset(78% 0 8% 0);  transform: translateX(5px); }
+}
+
+@keyframes glitch-b-hover {
+  0%   { opacity: 1; clip-path: inset(66% 0 16% 0); transform: translateX(5px); }
+  25%  { opacity: 0; }
+  50%  { opacity: 1; clip-path: inset(18% 0 66% 0); transform: translateX(-4px); }
+  75%  { opacity: 1; clip-path: inset(44% 0 40% 0); transform: translateX(3px); }
+  100% { opacity: 1; clip-path: inset(10% 0 72% 0); transform: translateX(-5px); }
+}
+
+/* Angular corners instead of pills, and an RGB split on hover. drop-shadow
+   rather than box-shadow: clip-path would cut a box-shadow off. */
+.hero .btn {
+  border-radius: 2px;
+  clip-path: polygon(
+    0 0, calc(100% - 11px) 0, 100% 11px,
+    100% 100%, 11px 100%, 0 calc(100% - 11px)
+  );
+  letter-spacing: 0.04em;
+}
+
+.hero .btn:hover {
+  filter: drop-shadow(3px 0 0 var(--neon-cyan)) drop-shadow(-3px 0 0 var(--neon-red));
+}
+
+.hero .btn-ghost:hover { border-color: var(--neon-cyan); }
+
+.hero-portrait img {
+  border-color: color-mix(in srgb, var(--neon-cyan) 40%, var(--border));
 }
 
 .hero-inner {
@@ -606,6 +727,10 @@ main { min-height: 60vh; padding-bottom: 5rem; }
   .btn:hover, .card:hover, .tile:hover, .post-nav-link:hover, .social a:hover {
     transform: none;
   }
+
+  /* The blanket rule above collapses animations to a single 0.001ms run, which
+     would strand the glitch layers on whatever frame they land on. Remove them. */
+  .hero-title::before, .hero-title::after, .hero-scan { display: none; }
 }
 
 @media print {

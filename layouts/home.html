@@ -1,5 +1,6 @@
 {{ define "main" }}
 <section class="hero">
+  <span class="hero-scan" aria-hidden="true"></span>
   <div class="wrap hero-inner">
     <div class="hero-text">
       <p class="hero-kicker">
@@ -8,7 +9,7 @@
         <span class="term-caret" aria-hidden="true"></span>
       </p>
 
-      <h1 class="hero-title">{{ site.Title }}</h1>
+      <h1 class="hero-title" data-text="{{ site.Title }}">{{ site.Title }}</h1>
       <p class="hero-tagline">{{ site.Params.tagline }}</p>
 
       {{- with .Content }}<div class="hero-body">{{ . }}</div>{{ end }}
