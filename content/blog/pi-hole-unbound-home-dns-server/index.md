@@ -1,6 +1,6 @@
 ---
 title: "Cutting Out the Middleman: Pi-hole + Unbound at Home"
-date: 2026-09-21T14:20:00-04:00
+date: 2026-09-21T09:30:00-04:00
 slug: "pi-hole-unbound-home-dns-server"
 summary: "It started with my grandfather trying to listen to Taiwanese music on YouTube and getting hit with 90-120 seconds of unskippable ads before every song. That was the moment I decided to stop renting my DNS from someone else and start resolving it myself."
 cover: ""
