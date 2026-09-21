@@ -20,11 +20,11 @@
       </div>
     </div>
 
-    {{- with resources.Get "images/austin-newton.png" }}
-      {{- $t := .Process "resize 720x webp q82" }}
+    {{- with resources.Get "images/austin-hero.png" }}
+      {{- $t := .Process "resize 960x webp q82" }}
       <figure class="hero-portrait">
         <img src="{{ $t.RelPermalink }}" width="{{ $t.Width }}" height="{{ $t.Height }}"
-             alt="Austin Chen with his dog, Newton" fetchpriority="high" decoding="async">
+             alt="Austin Chen beside a LeBron James figure in an NBA store" fetchpriority="high" decoding="async">
       </figure>
     {{- end }}
   </div>

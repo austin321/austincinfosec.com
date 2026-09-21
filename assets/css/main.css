@@ -341,7 +341,7 @@ main { min-height: 60vh; padding-bottom: 5rem; }
 
 .hero-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(200px, 23vw, 300px);
+  grid-template-columns: minmax(0, 1fr) clamp(260px, 34vw, 440px);
   align-items: center;
   gap: clamp(1.75rem, 4vw, 3.5rem);
 }
@@ -714,7 +714,7 @@ main { min-height: 60vh; padding-bottom: 5rem; }
   .post-nav-link.next { text-align: left; }
 
   .hero-inner { grid-template-columns: 1fr; }
-  .hero-portrait { order: -1; justify-self: start; max-width: 260px; }
+  .hero-portrait { order: -1; justify-self: start; max-width: 420px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
