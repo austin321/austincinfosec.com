@@ -7,6 +7,16 @@ layout: "projects"
 # Each entry renders as a card. `post` links to the full write-up on this site;
 # `repo` and `link` are optional and only render when set.
 projects:
+  - title: "Self-Hosted Recursive DNS — Pi-hole + Unbound"
+    year: "2026"
+    summary: >-
+      Replaced my home network's dependence on third-party DNS providers with a
+      Pi-hole + Unbound stack that blocks ad and tracker domains and performs full
+      recursive resolution against root, TLD, and authoritative servers directly.
+    tech: ["Pi-hole", "Unbound", "DNS", "DNSSEC", "Linux", "Privacy"]
+    post: "/blog/pi-hole-unbound-home-dns-server/"
+    repo: ""
+
   - title: "Python Email Automation"
     year: "2024"
     summary: >-
