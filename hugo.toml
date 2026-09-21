@@ -21,7 +21,7 @@ summaryLength = 30
 
   [[params.social]]
     name = "GitHub"
-    url = "https://github.com/"
+    url = "https://github.com/austin321"
     icon = "github"
   [[params.social]]
     name = "LinkedIn"
@@ -33,7 +33,7 @@ summaryLength = 30
     icon = "x"
   [[params.social]]
     name = "Email"
-    url = "mailto:austinevanchen@gmail.com"
+    url = "mailto:austinechen11@gmail.com"
     icon = "mail"
 
 [menus]
