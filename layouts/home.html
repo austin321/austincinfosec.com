@@ -1,21 +1,31 @@
 {{ define "main" }}
 <section class="hero">
   <div class="wrap hero-inner">
-    <p class="hero-kicker">
-      <span class="term-prompt" aria-hidden="true">$</span>
-      <span class="term-cmd">{{ site.Params.prompt }}</span>
-      <span class="term-caret" aria-hidden="true"></span>
-    </p>
+    <div class="hero-text">
+      <p class="hero-kicker">
+        <span class="term-prompt" aria-hidden="true">$</span>
+        <span class="term-cmd">{{ site.Params.prompt }}</span>
+        <span class="term-caret" aria-hidden="true"></span>
+      </p>
 
-    <h1 class="hero-title">{{ site.Title }}</h1>
-    <p class="hero-tagline">{{ site.Params.tagline }}</p>
+      <h1 class="hero-title">{{ site.Title }}</h1>
+      <p class="hero-tagline">{{ site.Params.tagline }}</p>
 
-    {{- with .Content }}<div class="hero-body">{{ . }}</div>{{ end }}
+      {{- with .Content }}<div class="hero-body">{{ . }}</div>{{ end }}
 
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="{{ "/blog/" | relURL }}">Read the blog</a>
-      <a class="btn btn-ghost" href="{{ "/about/" | relURL }}">About me</a>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="{{ "/blog/" | relURL }}">Read the blog</a>
+        <a class="btn btn-ghost" href="{{ "/about/" | relURL }}">About me</a>
+      </div>
     </div>
+
+    {{- with resources.Get "images/austin-newton.png" }}
+      {{- $t := .Process "resize 720x webp q82" }}
+      <figure class="hero-portrait">
+        <img src="{{ $t.RelPermalink }}" width="{{ $t.Width }}" height="{{ $t.Height }}"
+             alt="Austin Chen with his dog, Newton" fetchpriority="high" decoding="async">
+      </figure>
+    {{- end }}
   </div>
 </section>
 
