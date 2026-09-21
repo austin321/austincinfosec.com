@@ -12,7 +12,7 @@ summaryLength = 30
 
 [params]
   author = "Austin Chen"
-  description = "Cybersecurity student, blogger, and ex-junior Olympic fencer. Notes on security labs, cloud, and certifications."
+  description = "Cybersecurity learner and blogger. Notes on security labs, cloud, and certifications."
   tagline = "Cybersecurity learner. I make things happen."
   email = "austinevanchen@gmail.com"
   location = "United States"
