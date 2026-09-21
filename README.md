@@ -1,10 +1,7 @@
 # austincinfosec.com
 
-Personal site and blog for Austin Chen, built with [Hugo](https://gohugo.io) and
+Personal site and blog, built with [Hugo](https://gohugo.io) and
 deployed to GitHub Pages on every push to `main`.
-
-Migrated from WordPress.com — all five original posts, their images, and their
-original permalinks are preserved.
 
 ## Local development
 
